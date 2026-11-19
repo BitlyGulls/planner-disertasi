@@ -590,7 +590,9 @@ function cloudPayload(value=state){return{version:2,projectId:seed.projectId,tit
 function normalizeCloud(data){const p=validate({...data,projectId:seed.projectId,updatedAt:new Date().toISOString(),lang:state.lang,theme:state.theme,preferencesVersion:1,view:state.view});return cloudPayload(p)}
 function applyCloud(data){const prefs={lang:state.lang,theme:state.theme,view:state.view};applyingRemote=true;try{state=validate({...data,...prefs,projectId:seed.projectId,updatedAt:new Date().toISOString(),preferencesVersion:1});history=[];selectedExists();persist();render()}finally{applyingRemote=false}}
 function switchCloudAccount(uid){const before=cloudPayload(),previousScope=accountScope,prefs={lang:state.lang,theme:state.theme,view:state.view};accountScope=uid;let data=null;try{const cached=localStorage.getItem(storageKey());if(cached)data=validate(JSON.parse(cached))}catch(e){}if(data)applyCloud({...data,...prefs});else applyCloud({...seed,...prefs});if(uid&&!data&&!previousScope&&JSON.stringify(before)!==JSON.stringify(cloudPayload(validate(seed))))applyCloud(before);const baseline=cloudPayload(validate(seed));return{hasCache:!!data,anonymousDraft:uid&&!data&&!previousScope&&JSON.stringify(before)!==JSON.stringify(baseline)?{base:baseline,revision:0,local:before}:null}}
-window.plannerBridge={read:()=>cloudPayload(),validate:normalizeCloud,apply:applyCloud,account:switchCloudAccount,projectId:()=>seed.projectId,language:()=>state.lang};
+function flushEditor(){const item=current();if(!item)return true;const patch={};for(const field of ['title','notes','phase','start','end','type']){const input=$('edit-'+field);if(input.disabled)continue;const key=field==='title'||field==='notes'?fieldKey(field):field;let value=input.value;if(field==='title')value=value.trim();if(value!==String(item[key]||'')){if(field==='title'&&!value){toast(tr('emptyTitle'));return false}if(['start','end'].includes(field)&&!validDate(value)){toast(tr('validDate'));return false}patch[key]=value}}return Object.keys(patch).length?update(selected.taskId,selected.subId,patch):true}
+$('editor').addEventListener('focusout',()=>flushEditor());
+window.plannerBridge={read:()=>cloudPayload(),flush:flushEditor,validate:normalizeCloud,apply:applyCloud,account:switchCloudAccount,projectId:()=>seed.projectId,language:()=>state.lang};
 
 render();
 })();
@@ -657,7 +659,7 @@ async function run(action,force=false){
 async function authorized(response){
  authBusy=false;if(response.error){setMode('permission');return}
  if(!google.accounts.oauth2.hasGrantedAllScopes(response,'https://www.googleapis.com/auth/drive.appdata','openid','https://www.googleapis.com/auth/userinfo.email')){setMode('permission');return}
- token=response.access_token;expires=Date.now()+(Number(response.expires_in)||3600)*1000-30000;busy=true;let newAccount=false;setMode('loading');
+ token=response.access_token;expires=Date.now()+(Number(response.expires_in)||3600)*1000-30000;busy=true;document.querySelector('main').inert=true;let newAccount=false;setMode('loading');
  try{
   const identity=await(await api('https://openidconnect.googleapis.com/v1/userinfo')).json();if(!identity.sub)throw Error('identity');
   newAccount=user?.sub!==identity.sub;
@@ -671,11 +673,11 @@ async function authorized(response){
     else{showConflict(found)}
    }else{base=null;remember();setMode('empty')}
   }else setMode(dirty()?'pending':'saved');
- }catch(error){failure(error);busy=false;render();return}
- busy=false;render();if(intent==='save'&&!conflict)await run('save');else if(intent==='load'&&!conflict&&!newAccount)await run('load',true);
+ }catch(error){failure(error);busy=false;document.querySelector('main').inert=false;render();return}
+ busy=false;document.querySelector('main').inert=false;render();if(intent==='save'&&!conflict)await run('save');else if(intent==='load'&&!conflict&&!newAccount)await run('load',true);
 }
 function request(action){
- if(busy||authBusy||!client)return;intent=action;
+ if(busy||authBusy||!client)return;if(action==='save'&&bridge.flush?.()===false)return;intent=action;
  if(action==='load'&&user&&dirty()&&!confirm(t('discard')))return;
  if(token&&Date.now()<expires){run(action,action==='load');return}
  authBusy=true;render();try{client.requestAccessToken({prompt:user?'':'select_account',...(user?.email?{hint:user.email}:{})})}catch(e){authBusy=false;setMode('popup')}
@@ -688,7 +690,7 @@ document.addEventListener('focusout',render);
 // Resolve conflicts explicitly; these buttons never send edits in the background.
 const binding=()=>{
  $('drive-connect').onclick=()=>request('load');$('drive-save').onclick=()=>request('save');$('drive-load').onclick=()=>request('load');$('drive-disconnect').onclick=disconnect;
- $('drive-use-remote').onclick=()=>{if(remote)accept(remote)};$('drive-keep-local').onclick=()=>{if(token&&Date.now()<expires)run('save',true);else{conflict=false;request('save')}};
+ $('drive-use-remote').onclick=()=>{if(remote)accept(remote)};$('drive-keep-local').onclick=()=>{if(bridge.flush?.()===false)return;if(token&&Date.now()<expires)run('save',true);else{conflict=false;request('save')}};
 };binding();
 if(location.protocol==='file:'){setMode('localFile');return}
 if(!config.clientId){setMode('setup');return}
