@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Planner Disertasi Jagad</title>
+<style>
+:root{color-scheme:light;--ink:#172b40;--muted:#526578;--line:#dfe6eb;--paper:#fff;--soft:#f4f7f9;--blue:#215dc5;--row:48px;--left:568px;--chart:800px;--font:14px}
+*{box-sizing:border-box}body{margin:0;background:#edf2f5;color:var(--ink);font:var(--font)/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer;background:var(--paper);border:1px solid #c8d3dd;border-radius:6px;padding:8px 12px;font-weight:550;white-space:nowrap}button:hover{background:#edf3fa}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #94b7f7;outline-offset:1px}button.primary{background:var(--blue);color:#fff;border-color:var(--blue)}button.primary:hover{background:#194ca7}button:disabled{opacity:.45;cursor:default}input,select,textarea{background:#fff;border:1px solid #c8d3dd;border-radius:5px;padding:6px 8px;min-width:0}input[type=date]{font-size:12px;padding:5px 2px;width:111px}input[type=number]{width:48px;padding:5px 2px}textarea{resize:vertical;width:100%;min-height:58px}header{background:var(--paper);border-bottom:1px solid var(--line);padding:20px 24px 16px}.top{display:flex;justify-content:space-between;gap:20px;align-items:center}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:3px}.title{font-size:24px;font-weight:700;letter-spacing:-.025em}.subtitle{color:var(--muted);font-size:13px;margin-top:4px}.target{text-align:right;font-size:13px;flex-shrink:0}.target strong{display:block;font-size:17px;color:var(--blue)}main{padding:18px 24px 24px;max-width:1920px;margin:0 auto}.toolbar,.tools,.view-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.toolbar{justify-content:space-between;margin-bottom:10px}.tools .sep{height:24px;width:1px;background:#cad5df;margin:0 3px}.view-tools label{font-size:12px;color:var(--muted)}.view-tools select{font-size:13px}.help{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:10px 0}.notice{background:#fff8e7;color:#674b07;border-left:3px solid #e0ad38;padding:8px 12px;font-size:12px;margin:12px 0}.save-state{font-size:12px;color:var(--muted)}.legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted);margin:12px 0}.legend span{display:inline-flex;align-items:center;gap:5px}.swatch{width:13px;height:8px;border-radius:2px;background:var(--c)}.diamond-key{width:9px;height:9px;background:#a25820;transform:rotate(45deg);display:inline-block;margin:0 3px}.sheet{overflow:auto;max-height:66vh;min-height:300px;background:#fff;border:1px solid #cdd8e2;border-radius:8px;position:relative;scrollbar-gutter:stable}.grid-row{display:flex;width:calc(var(--left) + var(--chart));height:var(--row);position:relative}.grid-row:hover .fixed,.grid-row:hover .track{background-color:#f6f9fd}.grid-row.selected .fixed,.grid-row.selected .track{background-color:#edf4ff}.fixed{position:sticky;left:0;z-index:3;flex:0 0 var(--left);width:var(--left);background:#fff;display:grid;grid-template-columns:30px 244px 116px 116px 62px;align-items:center;border-right:2px solid #c9d5e0;border-bottom:1px solid var(--line)}.cell{padding:3px 4px;min-width:0}.index{color:#789;font-size:11px;text-align:center}.activity input{width:100%;border-color:transparent;padding:2px 4px;font-size:13px;background:transparent;font-weight:550}.activity input:hover,.activity input:focus{border-color:#a9bcce;background:white}.phase-line{font-size:10px;color:var(--muted);padding-left:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.percentage{display:flex;align-items:center;font-size:11px}.percentage input{font-size:12px;width:41px;border-color:transparent;background:transparent}.percentage input:hover,.percentage input:focus{border-color:#a9bcce;background:white}.fixed input[type=date]{border-color:transparent;background:transparent}.fixed input[type=date]:hover,.fixed input[type=date]:focus{border-color:#a9bcce;background:white}.track{position:relative;flex:0 0 var(--chart);width:var(--chart);height:100%;border-bottom:1px solid var(--line);background:white}.gridline{position:absolute;top:0;bottom:0;width:1px;background:#e7edf2;pointer-events:none}.bar{position:absolute;top:14px;height:21px;min-width:6px;border:0;border-radius:4px;background:var(--c);padding:0;touch-action:none;cursor:grab;overflow:visible;z-index:1;user-select:none;box-shadow:0 1px 1px #00000016}.bar:active{cursor:grabbing}.bar.selected{outline:2px solid var(--ink);outline-offset:2px}.fill{position:absolute;left:0;top:0;height:100%;background:#0003;border-radius:4px;pointer-events:none}.handle{position:absolute;top:0;bottom:0;width:9px;cursor:ew-resize;z-index:2}.handle.left{left:0}.handle.right{right:0}.handle::after{content:"";display:block;position:absolute;top:5px;bottom:5px;width:2px;background:#ffffff99;left:3px;opacity:0}.bar:hover .handle::after{opacity:1}.bar-label{position:absolute;left:calc(100% + 7px);top:1px;font-size:11px;color:var(--ink);white-space:nowrap;pointer-events:none;max-width:200px;overflow:hidden;text-overflow:ellipsis}.bar.milestone{width:13px!important;min-width:13px;height:13px;top:18px;transform:translateX(-6px) rotate(45deg);border-radius:1px}.bar.milestone .bar-label{transform:rotate(-45deg);transform-origin:left center;left:16px;top:-7px}.chart-head{height:55px;position:sticky;top:0;z-index:10;display:flex;width:calc(var(--left) + var(--chart));background:#f3f6f9}.chart-head .fixed{height:55px;background:#f3f6f9;z-index:11;font-size:11px;font-weight:650}.periods{position:relative;width:var(--chart);flex:0 0 var(--chart);border-bottom:1px solid #cdd8e2}.year,.period{position:absolute;white-space:nowrap;overflow:hidden;text-overflow:clip;padding-left:7px;border-left:1px solid #cdd8e2;font-size:11px;color:#526578;display:flex;align-items:center}.year{top:0;height:25px;font-weight:650;border-bottom:1px solid #dce4eb}.period{top:25px;height:30px}.today-line,.target-line{position:absolute;top:0;bottom:0;border-left:1px dashed #c94c42;pointer-events:none;z-index:2}.target-line{border-color:#97521a}.editor{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px 16px}.editor-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.editor-top strong{font-size:13px}.editor-grid{display:grid;grid-template-columns:minmax(200px,2fr) minmax(160px,1fr) 120px 120px minmax(145px,1fr);gap:10px;margin-top:10px}.field{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted)}.field input,.field select{font-size:13px;width:100%;color:var(--ink)}.field input[type=date]{height:33px;padding:5px}.notes{margin-top:10px}.danger{color:#a43434}.settings{margin-top:14px;font-size:12px;color:var(--muted)}.settings summary{cursor:pointer;display:inline-block}.settings-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}.settings-grid input{font-size:13px}.settings-grid .project-name{width:350px;max-width:100%}.empty{padding:30px;color:var(--muted);font-size:14px}#toast{position:fixed;bottom:20px;right:20px;background:#172b40;color:white;padding:10px 16px;border-radius:7px;box-shadow:0 3px 15px #0002;max-width:calc(100vw - 40px);z-index:50;font-size:13px}#toast[hidden]{display:none}.foot{font-size:11px;color:var(--muted);margin-top:14px}.mobile-hint{display:none}
+@media(max-width:800px){header{padding:16px}main{padding:12px}.title{font-size:21px}.target{display:none}.editor-grid{grid-template-columns:1fr 1fr}.editor-grid .wide{grid-column:1/-1}.tools button{padding:7px 9px;font-size:12px}.top{gap:8px}.mobile-hint{display:inline}.sheet{max-height:65vh;--left:336px}.fixed{grid-template-columns:26px 248px 62px}.date-col{display:none}.phase-line{font-size:10px}.help{font-size:11px}.settings-grid .project-name{width:270px}}
+@media print{@page{size:A3 landscape;margin:10mm}body{background:white;font-size:11px}header,main{padding:0}.toolbar,.help,.editor,.settings,.notice,.save-state,#toast,.foot{display:none!important}.sheet{overflow:visible;max-height:none;border-radius:0;border:0}.grid-row,.chart-head{width:100%}.chart-head{position:static}.fixed{position:static;--left:430px;grid-template-columns:26px 184px 90px 90px 40px}.fixed input[type=date]{width:86px;font-size:10px}.activity input{font-size:11px}.track,.periods{flex:1;width:auto}.bar,.swatch{print-color-adjust:exact;-webkit-print-color-adjust:exact}.grid-row{height:42px}.bar-label{display:none}.title{font-size:22px}.subtitle{margin-bottom:12px}.legend{margin:8px 0}.target strong{font-size:15px}input{border:0!important}.phase-line{font-size:9px}}
+.handle{width:min(8px,20%)}.editor-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.editor-actions button{font-size:12px;padding:6px 10px}
+.header-right{display:flex;align-items:center;gap:26px;flex-wrap:wrap}.language-control{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}.language-switch{width:44px;height:25px;border:0;border-radius:20px;background:#376bb6;padding:3px;position:relative}.language-switch:hover{background:#215dc5}.language-switch span{display:block;width:19px;height:19px;border-radius:50%;background:white;transform:translateX(0);transition:transform .15s ease}.language-switch[aria-checked=true] span{transform:translateX(19px)}.lang-caption{font-size:11px;font-weight:650}.view-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px}.view-bar button{font-size:12px;padding:6px 10px}.zoom-control{display:flex;align-items:center;gap:8px}.zoom-label{display:flex;align-items:center;gap:10px;min-width:0;font-size:12px;color:var(--muted)}.zoom-label input{width:135px;accent-color:var(--blue);padding:0;border:0}.zoom-control>button:not(:last-child){min-width:32px;font-size:18px;padding:1px 8px}.activity-top{display:flex;align-items:center;gap:2px;min-width:0}.activity-top input{flex:1;min-width:0}.disclosure{border:0;background:transparent;border-radius:3px;padding:0;width:21px;height:24px;flex-shrink:0;font-size:13px;color:#516a80}.disclosure:hover{background:#dce8f7}.phase-line{padding-left:27px}.percentage{justify-content:center;flex-direction:column;gap:1px}.progress-value{font-size:12px;font-weight:650}.progress-count{font-size:10px;color:var(--muted)}.sub-row{height:42px}.sub-row .fixed{background:#f8fafc}.sub-row .track{background:#fafcfd}.sub-row .activity{padding-left:22px}.sub-row .activity input[type=text]{font-size:12px;font-weight:400}.sub-row .activity-top{gap:6px}.check-input{width:16px;height:16px;accent-color:var(--blue);flex:0 0 auto;margin:0;cursor:pointer}.sub-row.done .activity input[type=text]{color:#718290;text-decoration:line-through}.sub-index{font-size:10px}.sub-row .bar{height:13px;top:14px;opacity:.6;box-shadow:none}.sub-row.done .bar{opacity:1}.add-sub-row{height:34px}.add-sub-row .fixed{background:#f8fafc}.add-sub-row .track{background:#fafcfd}.inline-add{border:0;background:transparent;color:var(--blue);padding:3px 5px 3px 27px;font-size:12px;text-align:left}.inline-add:hover{background:transparent;text-decoration:underline}.summary .bar{height:16px;top:17px;border-radius:2px}.summary .bar::before,.summary .bar::after{content:"";position:absolute;bottom:-5px;width:0;height:0;border-top:6px solid var(--c)}.summary .bar::before{left:0;border-right:5px solid transparent}.summary .bar::after{right:0;border-left:5px solid transparent}.summary .fixed input[type=date]:disabled{opacity:1;color:#597186}.text-hint{font-size:11px;color:var(--muted);margin-top:3px}.progress-explanation{font-size:12px;color:var(--muted);margin-top:9px}.checklist-section{border-top:1px solid var(--line);margin-top:16px;padding-top:12px}.checklist-heading{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px;margin-bottom:9px}.checklist-heading button{font-size:12px;padding:5px 9px}.checklist-item{display:flex;align-items:center;gap:9px;padding:5px 0}.checklist-item button{flex:1;white-space:normal;text-align:left;font-size:12px;border:0;padding:3px 5px;background:transparent;font-weight:400}.checklist-item button:hover{background:#edf4ff}.checklist-item.done button{color:#718290;text-decoration:line-through}.checklist-empty{font-size:12px;color:var(--muted)}.translation{font-size:12px;color:var(--muted);margin-top:10px}.translation summary{cursor:pointer}.translation-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}.translation textarea{min-height:34px}.parent-status{font-size:11px;color:var(--muted)}.legacy-progress{color:#94600e}.year{font-size:12px}.period{font-size:12px}.bar-label{max-width:175px}.sheet{max-height:65vh}.bar-label{display:none}
+@media(max-width:800px){.header-right{gap:8px}.header-right .target{display:none}.language-control>#language-label{display:none}.top{align-items:flex-start}.zoom-label{gap:6px}.zoom-label input{width:90px}.view-bar{gap:8px}.translation-grid{grid-template-columns:1fr}.checklist-heading{align-items:flex-start}.editor-top{align-items:flex-start}.editor-actions{justify-content:flex-end}.editor-grid{grid-template-columns:1fr 1fr}.checklist-heading strong{max-width:55%}}
+@media(prefers-reduced-motion:reduce){.language-switch span{transition:none}}
+@media print{.view-bar,.language-control,.add-sub-row{display:none!important}.sub-row{height:36px}.phase-line{padding-left:5px}.check-input{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
+.activity .check-input{width:16px;height:16px;padding:0;flex:0 0 16px}
+</style>
+</head>
+<body>
+<header><div class="top"><div><div class="eyebrow" data-i18n="identity"></div><div class="title" id="project-title"></div><div class="subtitle" data-i18n="subtitle"></div></div><div class="header-right"><div class="target"><span data-i18n="targetLabel"></span><strong id="target-display"></strong></div><div class="language-control"><span id="language-label" data-i18n="language"></span><span class="lang-caption">ID</span><button id="language-toggle" class="language-switch" type="button" role="switch" aria-checked="false" aria-labelledby="language-label"><span></span></button><span class="lang-caption">EN</span></div></div></div></header>
+<main>
+<div class="toolbar"><div class="tools"><button id="add" class="primary" data-i18n="addTask"></button><button id="add-subtask" data-i18n="addSubtask"></button><button id="add-milestone" data-i18n="addMilestone"></button><button id="undo" disabled data-i18n="undo"></button><span class="sep"></span><button id="save-html" data-i18n="saveHtml"></button><button id="export-json" data-i18n="backup"></button><button id="import-json" data-i18n="openData"></button><input id="file-input" type="file" accept=".json,application/json" hidden></div></div>
+<div class="view-bar"><div class="view-tools"><button id="collapse-all" data-i18n="collapseAll"></button><button id="expand-all" data-i18n="expandAll"></button></div><div class="zoom-control"><button id="zoom-out" aria-label="Zoom out">−</button><label class="zoom-label" for="zoom"><span id="zoom-description"></span><input id="zoom" type="range" min="0" max="3" step="1" value="2"></label><button id="zoom-in" aria-label="Zoom in">+</button><button id="print" data-i18n="print"></button></div></div>
+<div class="notice" data-i18n="notice"></div>
+<div class="help"><span data-i18n="help"></span><span class="save-state" id="save-state" role="status"></span></div>
+<div class="legend" aria-label="Legend"><span><i class="swatch" style="--c:#376bb6"></i><span data-i18n="prep"></span></span><span><i class="swatch" style="--c:#178479"></i><span data-i18n="research"></span></span><span><i class="swatch" style="--c:#8055b4"></i><span data-i18n="writing"></span></span><span><i class="swatch" style="--c:#a25820"></i><span data-i18n="finish"></span></span><span><i class="diamond-key"></i><span data-i18n="milestone"></span></span><span data-i18n="todayLegend"></span></div>
+<div class="sheet" id="sheet"><div class="chart-head" id="chart-head"></div><div id="rows"></div></div>
+<section class="editor" id="editor"><div class="editor-top"><div><strong id="editor-heading"></strong><div class="text-hint" id="editor-parent"></div></div><div class="editor-actions"><button id="move-up" data-i18n="moveUp"></button><button id="move-down" data-i18n="moveDown"></button><button id="delete" class="danger" data-i18n="delete"></button></div></div><div class="editor-grid"><label class="field wide"><span data-i18n="name"></span><input id="edit-title" maxlength="200"></label><label class="field"><span data-i18n="phase"></span><select id="edit-phase"><option value="prep" data-i18n="prep"></option><option value="research" data-i18n="research"></option><option value="writing" data-i18n="writing"></option><option value="finish" data-i18n="finish"></option></select></label><label class="field"><span data-i18n="start"></span><input id="edit-start" type="date" min="2000-01-01" max="2100-12-31"></label><label class="field"><span data-i18n="end"></span><input id="edit-end" type="date" min="2000-01-01" max="2100-12-31"></label><label class="field"><span data-i18n="type"></span><select id="edit-type"><option value="task" data-i18n="durationTask"></option><option value="milestone" data-i18n="milestone"></option></select></label></div><div class="progress-explanation" id="progress-explanation"></div><label class="field notes"><span data-i18n="notes"></span><textarea id="edit-notes" maxlength="3000"></textarea></label><details class="translation"><summary data-i18n="optionalTranslation"></summary><div class="translation-grid"><label class="field"><span id="other-language-title"></span><input id="edit-other-title" maxlength="200"></label><label class="field"><span id="other-language-notes"></span><textarea id="edit-other-notes" maxlength="3000"></textarea></label></div></details><section class="checklist-section" id="checklist-section"><div class="checklist-heading"><strong data-i18n="checklist"></strong><button id="editor-add-subtask" data-i18n="addSubtask"></button></div><div id="checklist-list"></div></section></section>
+<details class="settings"><summary data-i18n="settings"></summary><div class="settings-grid"><label class="field"><span data-i18n="projectTitle"></span><input class="project-name" id="setting-title" maxlength="120"></label><label class="field"><span data-i18n="targetLabel"></span><input type="date" id="setting-target" min="2000-01-01" max="2100-12-31"></label></div><p data-i18n="savingHelp"></p><p data-i18n="calculationHelp"></p><p data-i18n="translationHelp"></p></details>
+<div class="foot" data-i18n="foot"></div>
+</main>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="application/json" id="planner-data">
+{
+  "version": 2,
+  "projectId": "jagad-disertasi-2026-v1",
+  "title": "Planner Disertasi 2026–2029",
+  "target": "2029-12-15",
+  "updatedAt": "2026-11-19T00:00:00.000Z",
+  "tasks": [
+    {
+      "id": "t01",
+      "title": "Tuntaskan tugas semester 1",
+      "phase": "prep",
+      "start": "2026-11-19",
+      "end": "2026-12-15",
+      "progress": 0,
+      "type": "task",
+      "notes": "Sesuaikan dengan jadwal tugas dan ujian sebenarnya.",
+      "titleEn": "Finish semester 1 assignments",
+      "notesEn": "Adjust this activity to your actual coursework and examination deadlines.",
+      "subtasks": []
+    },
+    {
+      "id": "t02",
+      "title": "Perjelas tujuan, pertanyaan & kebutuhan data",
+      "phase": "prep",
+      "start": "2026-11-19",
+      "end": "2026-12-15",
+      "progress": 0,
+      "type": "task",
+      "notes": "Rangkum arahan bimbingan; siapkan satu calon lokasi uji coba. Judul dan kontribusi masih perlu disepakati.",
+      "titleEn": "Clarify objectives, questions & data needs",
+      "notesEn": "Summarize supervisory guidance and identify one candidate pilot site. The title and contribution still require agreement.",
+      "subtasks": []
+    },
+    {
+      "id": "t03",
+      "title": "Telaah kritis penelitian terdekat",
+      "phase": "prep",
+      "start": "2026-12-01",
+      "end": "2027-06-15",
+      "progress": 0,
+      "type": "task",
+      "notes": "Baca artikel asli dan susun matriks pembanding untuk menguji kandidat kesenjangan serta kebaruan.",
+      "titleEn": "Critically review the closest studies",
+      "notesEn": "Read original articles and build a comparison matrix to test candidate gaps and novelty claims.",
+      "subtasks": []
+    },
+    {
+      "id": "t04",
+      "title": "Audit akses, kualitas & cakupan data",
+      "phase": "prep",
+      "start": "2027-01-04",
+      "end": "2027-03-31",
+      "progress": 0,
+      "type": "task",
+      "notes": "Periksa contoh data nyata, izin akses, periode, lokasi, ketergantungan sumber, dan acuan validasi independen.",
+      "titleEn": "Audit data access, quality & coverage",
+      "notesEn": "Inspect real data samples, access permissions, periods, locations, source dependence, and independent validation references.",
+      "subtasks": []
+    },
+    {
+      "id": "t05",
+      "title": "Uji coba deformasi & rancangan validasi",
+      "phase": "research",
+      "start": "2027-02-01",
+      "end": "2027-05-31",
+      "progress": 0,
+      "type": "task",
+      "notes": "Uji kelayakan pengamatan pada satu calon lokasi. Validasi perpindahan dibedakan dari bukti mekanisme.",
+      "titleEn": "Pilot deformation analysis & validation design",
+      "notesEn": "Test observation feasibility at one candidate site. Distinguish displacement validation from evidence for mechanisms.",
+      "subtasks": []
+    },
+    {
+      "id": "t06",
+      "title": "Putuskan lingkup deteksi, prediksi & mekanisme",
+      "phase": "prep",
+      "start": "2027-05-03",
+      "end": "2027-06-15",
+      "progress": 0,
+      "type": "task",
+      "notes": "Bahas dengan promotor hubungan ketiga sasaran, kebutuhan data, prioritas kontribusi, dan evaluasi kronologis prediksi. Ini agenda keputusan, bukan penetapan lingkup.",
+      "titleEn": "Agree the scope of detection, prediction & mechanisms",
+      "notesEn": "Discuss the three objectives, data requirements, contribution priorities, and chronological prediction evaluation with your supervisors. This is a decision agenda, not a final scope.",
+      "subtasks": []
+    },
+    {
+      "id": "t07",
+      "title": "Matangkan proposal & protokol penelitian",
+      "phase": "prep",
+      "start": "2027-04-01",
+      "end": "2027-07-31",
+      "progress": 0,
+      "type": "task",
+      "notes": "Selaraskan tujuan, pertanyaan, kontribusi, data, pembanding dan evaluasi. Sesuaikan prosedur ujian dengan prodi.",
+      "titleEn": "Refine the proposal & research protocol",
+      "notesEn": "Align objectives, questions, contributions, data, baselines, and evaluation. Confirm the examination procedure with the program.",
+      "subtasks": []
+    },
+    {
+      "id": "t08",
+      "title": "Seminar konfirmasi (target)",
+      "phase": "finish",
+      "start": "2027-09-01",
+      "end": "2027-09-01",
+      "progress": 0,
+      "type": "milestone",
+      "notes": "Tanggal sementara dalam jendela Agustus–September 2027. Memerlukan kesiapan proposal dan persetujuan akademik.",
+      "titleEn": "Confirmation seminar (target)",
+      "notesEn": "Provisional date within August–September 2027. Requires a ready proposal and academic approval.",
+      "subtasks": []
+    },
+    {
+      "id": "t09",
+      "title": "Revisi proposal pascakonfirmasi",
+      "phase": "prep",
+      "start": "2027-09-02",
+      "end": "2027-10-01",
+      "progress": 0,
+      "type": "task",
+      "notes": "Alokasi sekitar satu bulan mengikuti gambaran dosen; sesuaikan masukan dan jadwal resmi.",
+      "titleEn": "Revise the proposal after confirmation",
+      "notesEn": "Approximately one month is allocated following the lecturer’s outline. Adjust to feedback and official dates.",
+      "subtasks": []
+    },
+    {
+      "id": "t10",
+      "title": "Pengumpulan data & pemantauan utama",
+      "phase": "research",
+      "start": "2027-10-04",
+      "end": "2028-06-30",
+      "progress": 0,
+      "type": "task",
+      "notes": "Mulai sesuai persetujuan yang diperlukan. Periksa kebutuhan pengamatan lebih awal agar cakupan temporal mencukupi.",
+      "titleEn": "Main data collection & monitoring",
+      "notesEn": "Start with the necessary approvals. Check early observation needs so temporal coverage is sufficient.",
+      "subtasks": []
+    },
+    {
+      "id": "t11",
+      "title": "Analisis deformasi & validasi independen",
+      "phase": "research",
+      "start": "2027-11-01",
+      "end": "2028-05-31",
+      "progress": 0,
+      "type": "task",
+      "notes": "Perhatikan besaran LOS, cakupan pengamatan, segmen pembanding dan riwayat kerusakan/penanganan.",
+      "titleEn": "Deformation analysis & independent validation",
+      "notesEn": "Consider LOS measurement, observation coverage, comparison segments, and damage and treatment histories.",
+      "subtasks": []
+    },
+    {
+      "id": "t12",
+      "title": "Tulis artikel 1: pengamatan & validasi",
+      "phase": "writing",
+      "start": "2028-01-03",
+      "end": "2028-04-28",
+      "progress": 0,
+      "type": "task",
+      "notes": "Pembagian artikel bersifat usulan dan mengikuti hasil serta kontribusi yang benar-benar tersedia.",
+      "titleEn": "Write article 1: observations & validation",
+      "notesEn": "The proposed article structure depends on actual findings and contributions.",
+      "subtasks": []
+    },
+    {
+      "id": "t13",
+      "title": "Kirim artikel 1 (target)",
+      "phase": "writing",
+      "start": "2028-04-28",
+      "end": "2028-04-28",
+      "progress": 0,
+      "type": "milestone",
+      "notes": "Target pengiriman. Waktu penerimaan tidak dapat dipastikan.",
+      "titleEn": "Submit article 1 (target)",
+      "notesEn": "Submission target. Acceptance timing cannot be guaranteed.",
+      "subtasks": []
+    },
+    {
+      "id": "t14",
+      "title": "Seminar 1 (target)",
+      "phase": "finish",
+      "start": "2028-06-01",
+      "end": "2028-06-01",
+      "progress": 0,
+      "type": "milestone",
+      "notes": "Tanggal sementara dalam jendela Mei–Juni 2028. Pastikan syarat dan persetujuan promotor.",
+      "titleEn": "Seminar 1 (target)",
+      "notesEn": "Provisional date within May–June 2028. Confirm requirements and supervisory approval.",
+      "subtasks": []
+    },
+    {
+      "id": "t15",
+      "title": "Fusi bukti & penilaian faktor/mekanisme",
+      "phase": "research",
+      "start": "2028-04-03",
+      "end": "2028-10-31",
+      "progress": 0,
+      "type": "task",
+      "notes": "Uji penjelasan alternatif, ketergantungan bukti, dan kondisi belum konklusif; jangan menyamakan korelasi dengan sebab fisik.",
+      "titleEn": "Evidence fusion & factor/mechanism assessment",
+      "notesEn": "Test alternative explanations, evidence dependence, and inconclusive cases. Do not equate correlation with physical causation.",
+      "subtasks": []
+    },
+    {
+      "id": "t16",
+      "title": "Evaluasi metode, ketidakpastian & pembanding",
+      "phase": "research",
+      "start": "2028-07-03",
+      "end": "2028-12-15",
+      "progress": 0,
+      "type": "task",
+      "notes": "Termasuk evaluasi prediksi kronologis apabila disepakati sebagai lingkup, serta uji nilai tambah fusi. Pisahkan data masukan dari acuan independen.",
+      "titleEn": "Evaluate methods, uncertainty & baselines",
+      "notesEn": "Includes chronological prediction evaluation if agreed in scope, and tests of the added value of fusion. Separate model inputs from independent references.",
+      "subtasks": []
+    },
+    {
+      "id": "t17",
+      "title": "Tulis artikel 2: fusi & penilaian mekanisme",
+      "phase": "writing",
+      "start": "2028-08-01",
+      "end": "2028-11-30",
+      "progress": 0,
+      "type": "task",
+      "notes": "Susun kontribusi berdasarkan hasil yang telah diuji.",
+      "titleEn": "Write article 2: fusion & mechanism assessment",
+      "notesEn": "Build the contribution around tested findings.",
+      "subtasks": []
+    },
+    {
+      "id": "t18",
+      "title": "Kirim artikel 2 (target)",
+      "phase": "writing",
+      "start": "2028-11-30",
+      "end": "2028-11-30",
+      "progress": 0,
+      "type": "milestone",
+      "notes": "Target pengiriman. Sisihkan waktu untuk revisi dan kemungkinan pengiriman ulang.",
+      "titleEn": "Submit article 2 (target)",
+      "notesEn": "Submission target. Allow time for revision and possible resubmission.",
+      "subtasks": []
+    },
+    {
+      "id": "t19",
+      "title": "Hasil inti penelitian tersedia (target)",
+      "phase": "research",
+      "start": "2028-12-15",
+      "end": "2028-12-15",
+      "progress": 0,
+      "type": "milestone",
+      "notes": "Periksa apakah hasil cukup menjawab pertanyaan utama; catat kekurangan yang harus diselesaikan.",
+      "titleEn": "Core research findings available (target)",
+      "notesEn": "Check whether findings answer the main questions and record remaining work.",
+      "subtasks": []
+    },
+    {
+      "id": "t20",
+      "title": "Pengujian pelengkap & sintesis / artikel 3",
+      "phase": "writing",
+      "start": "2028-11-01",
+      "end": "2029-03-30",
+      "progress": 0,
+      "type": "task",
+      "notes": "Bentuk artikel ketiga perlu disepakati berdasarkan kontribusi berbeda yang layak, misalnya hasil longitudinal atau pengembangan yang teruji. Tidak otomatis menjadi artikel visualisasi.",
+      "titleEn": "Additional tests & synthesis / article 3",
+      "notesEn": "Agree the third article around a distinct, defensible contribution, such as tested longitudinal findings or a further development. Visualization alone does not automatically constitute an article.",
+      "subtasks": []
+    },
+    {
+      "id": "t21",
+      "title": "Kirim artikel 3 (target)",
+      "phase": "writing",
+      "start": "2029-03-30",
+      "end": "2029-03-30",
+      "progress": 0,
+      "type": "milestone",
+      "notes": "Target pengiriman dan jumlah artikel mengikuti kesepakatan promotor serta persyaratan prodi.",
+      "titleEn": "Submit article 3 (target)",
+      "notesEn": "Submission targets and article count follow supervisory agreement and program requirements.",
+      "subtasks": []
+    },
+    {
+      "id": "t22",
+      "title": "Tulis & integrasikan disertasi",
+      "phase": "writing",
+      "start": "2027-01-04",
+      "end": "2029-05-31",
+      "progress": 0,
+      "type": "task",
+      "notes": "Menulis bertahap sejak proposal, kemudian memperbarui metode, hasil, pembahasan, dan kesimpulan. Penulisan berlangsung sepanjang penelitian.",
+      "titleEn": "Write & integrate the dissertation",
+      "notesEn": "Write progressively from the proposal onward, updating methods, results, discussion, and conclusions. Writing continues throughout the research.",
+      "subtasks": []
+    },
+    {
+      "id": "t23",
+      "title": "Tindak lanjuti penilaian & revisi jurnal",
+      "phase": "writing",
+      "start": "2028-05-01",
+      "end": "2029-09-28",
+      "progress": 0,
+      "type": "task",
+      "notes": "Alokasi waktu, bukan janji durasi penelaahan. Status publikasi wajib diverifikasi sebelum pengajuan ujian.",
+      "titleEn": "Respond to peer review & revise articles",
+      "notesEn": "This is an allocation of time, not a promised review duration. Verify publication status before applying for examination.",
+      "subtasks": []
+    },
+    {
+      "id": "t24",
+      "title": "Seminar 2 (target)",
+      "phase": "finish",
+      "start": "2029-05-15",
+      "end": "2029-05-15",
+      "progress": 0,
+      "type": "milestone",
+      "notes": "Tanggal sementara dalam jendela April–Juni 2029.",
+      "titleEn": "Seminar 2 (target)",
+      "notesEn": "Provisional date within April–June 2029.",
+      "subtasks": []
+    },
+    {
+      "id": "t25",
+      "title": "Draf disertasi lengkap (target)",
+      "phase": "writing",
+      "start": "2029-06-01",
+      "end": "2029-06-01",
+      "progress": 0,
+      "type": "milestone",
+      "notes": "Naskah utuh yang dapat ditelaah sebagai satu argumen penelitian, bukan kumpulan bab terpisah.",
+      "titleEn": "Complete dissertation draft (target)",
+      "notesEn": "A complete manuscript that can be read as one research argument rather than disconnected chapters.",
+      "subtasks": []
+    },
+    {
+      "id": "t26",
+      "title": "Penilaian kelayakan & revisi",
+      "phase": "finish",
+      "start": "2029-07-02",
+      "end": "2029-08-31",
+      "progress": 0,
+      "type": "task",
+      "notes": "Sesuaikan prosedur, persyaratan, dan waktu penilaian resmi.",
+      "titleEn": "Dissertation eligibility review & revisions",
+      "notesEn": "Adjust to official procedures, requirements, and assessment schedules.",
+      "subtasks": []
+    },
+    {
+      "id": "t27",
+      "title": "Ujian disertasi (target)",
+      "phase": "finish",
+      "start": "2029-10-01",
+      "end": "2029-10-01",
+      "progress": 0,
+      "type": "milestone",
+      "notes": "Tanggal sementara dalam jendela September–Oktober. Bentuk ujian mengikuti ketentuan prodi.",
+      "titleEn": "Dissertation examination (target)",
+      "notesEn": "Provisional date within September–October 2029. Examination format follows program requirements.",
+      "subtasks": []
+    },
+    {
+      "id": "t28",
+      "title": "Cadangan revisi akhir & administrasi",
+      "phase": "finish",
+      "start": "2029-10-02",
+      "end": "2029-12-14",
+      "progress": 0,
+      "type": "task",
+      "notes": "Cadangan untuk revisi, pengesahan, pemenuhan syarat dan administrasi kelulusan. Kalender wisuda terpisah.",
+      "titleEn": "Buffer for final revisions & administration",
+      "notesEn": "Allow time for revisions, approval, requirements, and graduation administration. The graduation ceremony has a separate calendar.",
+      "subtasks": []
+    },
+    {
+      "id": "t29",
+      "title": "Penyelesaian studi (target)",
+      "phase": "finish",
+      "start": "2029-12-15",
+      "end": "2029-12-15",
+      "progress": 0,
+      "type": "milestone",
+      "notes": "Tanggal kerja sementara untuk memberi ruang sebelum akhir Desember 2029; bukan jadwal kelulusan resmi.",
+      "titleEn": "Study completion (target)",
+      "notesEn": "Provisional planning date allowing a buffer before the end of December 2029. This is not an official graduation date.",
+      "subtasks": []
+    }
+  ],
+  "titleEn": "Dissertation Planner 2026–2029",
+  "lang": "id",
+  "view": {
+    "zoom": 2,
+    "expanded": [
+      "t01"
+    ]
+  }
+}
+</script>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id),DAY=86400000,copy=v=>JSON.parse(JSON.stringify(v));
+const iso=n=>new Date(n*DAY).toISOString().slice(0,10),day=s=>Date.parse(s+'T00:00:00Z')/DAY;
+const colors={prep:'#376bb6',research:'#178479',writing:'#8055b4',finish:'#a25820'};
+let language='id';
+const messages={
+ id:{identity:'Satrio Tunggul Satoto Jagad · Doktor Teknik Geomatika UGM',subtitle:'Kegiatan, checklist, dan jadwal penelitian dalam satu planner.',targetLabel:'Target penyelesaian',language:'Bahasa',addTask:'+ Kegiatan',addSubtask:'+ Subkegiatan',addMilestone:'+ Tonggak',undo:'Urungkan',saveHtml:'Simpan HTML',backup:'Cadangkan data',openData:'Buka data',collapseAll:'Tutup semua',expandAll:'Buka semua',print:'Cetak / PDF',notice:'Draf rencana untuk dibahas dengan promotor. Jadwal artikel adalah target pengiriman, bukan kepastian diterima. Tanggal ujian mengikuti aturan prodi.',help:'Klik ▸ untuk membuka subkegiatan. Centang checklist untuk memperbarui persentase induk. Geser batang untuk memindahkan jadwal.',prep:'Persiapan',research:'Penelitian',writing:'Penulisan & publikasi',finish:'Ujian & penyelesaian',milestone:'Tonggak',todayLegend:'Garis merah: hari ini',moveUp:'↑ Naik',moveDown:'↓ Turun',delete:'Hapus',name:'Nama kegiatan',phase:'Fase',start:'Mulai',end:'Selesai',type:'Jenis',durationTask:'Kegiatan berdurasi',notes:'Catatan',optionalTranslation:'Terjemahan opsional',checklist:'Checklist subkegiatan',settings:'Pengaturan rencana & cara menyimpan',projectTitle:'Judul rencana',savingHelp:'Perubahan disimpan pada browser ini jika penyimpanan tersedia. Simpan HTML mengunduh salinan lengkap dengan perubahan terbaru. Cadangkan data menyimpan JSON yang bisa dimuat melalui Buka data. Gunakan Chrome atau Edge untuk mengedit dan menyimpan.',calculationHelp:'Persentase induk = jumlah subkegiatan yang dicentang ÷ seluruh subkegiatan × 100%, dibulatkan ke bilangan terdekat. Semua subkegiatan berbobot sama. Induk tanpa subkegiatan bernilai 0%. Rentang tanggal induk mengikuti subkegiatannya; menggeser induk turut menggeser semua subkegiatan.',translationHelp:'Saklar bahasa mengganti antarmuka dan teks bawaan. Nama serta catatan tambahan tidak diterjemahkan otomatis; isi bahasa lainnya melalui Terjemahan opsional.',foot:'Periode semester adalah perkiraan kerja. Lingkup deteksi dan validasi, prediksi, serta penilaian faktor dan mekanisme ditentukan bersama promotor berdasarkan kelayakan data.',stored:'Tersimpan di browser ini',storageUnavailable:'Gunakan Simpan HTML untuk menyimpan perubahan',storageReady:'Penyimpanan otomatis pada browser ini',task:'Kegiatan',subtask:'Subkegiatan',newTask:'Kegiatan baru',newSubtask:'Subkegiatan baru',newMilestone:'Tonggak baru',done:'Selesai',notDone:'Belum selesai',checkDone:'Tandai selesai: {name}',toggleChildren:'Buka/tutup subkegiatan: {name}',deleteTask:'Hapus kegiatan',deleteSubtask:'Hapus subkegiatan',taskDetail:'Detail kegiatan {number}',subtaskDetail:'Detail subkegiatan {number}',childOf:'Bagian dari: {name}',progressSummary:'{done} dari {total} subkegiatan selesai · {percent}%',noChildren:'Belum ada subkegiatan. Tambahkan checklist untuk mulai menghitung kemajuan.',summaryDates:'Tanggal induk mengikuti rentang subkegiatan. Ubah tanggal pada subkegiatan atau geser seluruh batang induk.',oldProgress:'Progres manual versi lama: {percent}%. Tersimpan sebagai catatan; progres baru dihitung dari checklist.',otherTitle:'Nama (Inggris)',otherNotes:'Catatan (Inggris)',otherTitleId:'Nama (Indonesia)',otherNotesId:'Catatan (Indonesia)',empty:'Tambahkan kegiatan untuk mulai menyusun rencana.',allPlan:'Seluruh rencana · triwulan',quarterView:'Triwulan',monthView:'Bulanan',monthWide:'Bulanan · lebar',quarter:'Tri {n}',sheetLabel:'Tabel kegiatan, checklist, dan diagram Gantt',progressLabel:'Kemajuan: {name}',progressTitle:'Dihitung dari checklist subkegiatan',nameLabel:'Nama: {name}',validDate:'Isi tanggal yang valid.',invalidData:'Format data planner tidak sesuai.',invalidTask:'Ada kegiatan dengan nama, tanggal, atau subkegiatan yang tidak valid.',invalidMilestone:'Seluruh subkegiatan tonggak harus berada pada tanggal yang sama.',limit:'Maksimal 500 kegiatan dan 200 subkegiatan per kegiatan.',removed:'Dihapus. Gunakan Urungkan untuk memulihkan.',undone:'Perubahan terakhir diurungkan.',emptyTitle:'Nama kegiatan tidak boleh kosong.',emptyProject:'Judul rencana tidak boleh kosong.',htmlSaved:'Salinan HTML dengan jadwal dan checklist terbaru disiapkan untuk diunduh.',backupSaved:'Cadangan data disiapkan untuk diunduh.',imported:'Data dibuka. Gunakan Urungkan untuk memulihkan rencana sebelumnya.',importFailed:'Gagal membuka data: {message}',largeFile:'Berkas terlalu besar. Maksimal 5 MB.',legacyDone:'Penyelesaian kegiatan',zoomIn:'Perbesar: tampilkan bulan',zoomOut:'Perkecil: tampilkan triwulan',completed:'{percent}% selesai'},
+ en:{identity:'Satrio Tunggul Satoto Jagad · PhD in Geomatics Engineering, UGM',subtitle:'Research tasks, checklists, and schedules in one planner.',targetLabel:'Target completion',language:'Language',addTask:'+ Task',addSubtask:'+ Subtask',addMilestone:'+ Milestone',undo:'Undo',saveHtml:'Save HTML',backup:'Back up data',openData:'Open data',collapseAll:'Collapse all',expandAll:'Expand all',print:'Print / PDF',notice:'Draft plan for discussion with your supervisors. Article dates are submission targets, not guaranteed acceptance dates. Examination dates follow program requirements.',help:'Click ▸ to expand subtasks. Check items to update parent completion. Drag a bar to move its schedule.',prep:'Preparation',research:'Research',writing:'Writing & publications',finish:'Examinations & completion',milestone:'Milestone',todayLegend:'Red line: today',moveUp:'↑ Move up',moveDown:'↓ Move down',delete:'Delete',name:'Task name',phase:'Phase',start:'Start',end:'Finish',type:'Type',durationTask:'Task with duration',notes:'Notes',optionalTranslation:'Optional translation',checklist:'Subtask checklist',settings:'Plan settings & saving',projectTitle:'Plan title',savingHelp:'Changes are stored in this browser when storage is available. Save HTML downloads a complete copy with your latest changes. Back up data saves JSON that can be loaded with Open data. Use Chrome or Edge to edit and save.',calculationHelp:'Parent completion = checked subtasks ÷ all subtasks × 100%, rounded to the nearest integer. Every subtask has equal weight. A parent with no subtasks shows 0%. Parent dates follow its subtasks; dragging a parent moves all its subtasks.',translationHelp:'The language switch changes the interface and built-in text. New names and notes are not automatically translated; enter the other language under Optional translation.',foot:'Semester periods are planning estimates. Detection and validation, prediction, and factor and mechanism assessment are scoped with your supervisors according to data feasibility.',stored:'Saved in this browser',storageUnavailable:'Use Save HTML to keep your changes',storageReady:'Automatic storage in this browser',task:'Task',subtask:'Subtask',newTask:'New task',newSubtask:'New subtask',newMilestone:'New milestone',done:'Done',notDone:'Not done',checkDone:'Mark complete: {name}',toggleChildren:'Expand/collapse subtasks: {name}',deleteTask:'Delete task',deleteSubtask:'Delete subtask',taskDetail:'Task {number} details',subtaskDetail:'Subtask {number} details',childOf:'Part of: {name}',progressSummary:'{done} of {total} subtasks complete · {percent}%',noChildren:'No subtasks yet. Add checklist items to start tracking completion.',summaryDates:'Parent dates follow its subtasks. Edit subtask dates or drag the whole parent bar.',oldProgress:'Previous manual progress: {percent}%. Retained for reference; new progress is calculated from the checklist.',otherTitle:'Name (English)',otherNotes:'Notes (English)',otherTitleId:'Name (Indonesian)',otherNotesId:'Notes (Indonesian)',empty:'Add a task to start planning.',allPlan:'Full plan · quarters',quarterView:'Quarterly',monthView:'Monthly',monthWide:'Monthly · expanded',quarter:'Q{n}',sheetLabel:'Task table, checklists, and Gantt chart',progressLabel:'Completion: {name}',progressTitle:'Calculated from the subtask checklist',nameLabel:'Name: {name}',validDate:'Enter a valid date.',invalidData:'Invalid planner data format.',invalidTask:'A task has an invalid name, date, or subtask.',invalidMilestone:'All milestone subtasks must fall on the same date.',limit:'Up to 500 tasks and 200 subtasks per task.',removed:'Deleted. Use Undo to restore it.',undone:'Last change undone.',emptyTitle:'Task name cannot be empty.',emptyProject:'Plan title cannot be empty.',htmlSaved:'An HTML copy with the latest schedule and checklists is ready to download.',backupSaved:'Data backup is ready to download.',imported:'Data loaded. Use Undo to restore the previous plan.',importFailed:'Could not load data: {message}',largeFile:'File is too large. Maximum size: 5 MB.',legacyDone:'Task completion',zoomIn:'Zoom in: show months',zoomOut:'Zoom out: show quarters',completed:'{percent}% complete'}
+};
+function tr(key,values={}){return(messages[language][key]||messages.id[key]||key).replace(/\{(\w+)\}/g,(_,k)=>String(values[k]??''))}
+const locale=()=>language==='en'?'en-GB':'id-ID';
+const text=(item,field='title')=>language==='en'&&item[field+'En']?.trim()?item[field+'En']:item[field]||'';
+const fieldKey=field=>language==='en'?field+'En':field;
+function fmt(s,short=false){return new Intl.DateTimeFormat(locale(),{day:'numeric',month:short?'short':'long',year:'numeric',timeZone:'UTC'}).format(new Date(s+'T00:00:00Z'))}
+function el(tag,cls,value){const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=value;return e}
+function validDate(s){return typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&s>='2000-01-01'&&s<='2100-12-31'&&Number.isFinite(day(s))&&iso(day(s))===s}
+const seed=JSON.parse($('planner-data').textContent);
+const knownTitles=new Map(seed.tasks.filter(t=>t.titleEn).map(t=>[t.title,t.titleEn]));
+const knownNotes=new Map(seed.tasks.filter(t=>t.notesEn).map(t=>[t.notes,t.notesEn]));
+const uid=prefix=>prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9);
+function completion(t){return t.subtasks.length?Math.round(100*t.subtasks.filter(s=>s.done).length/t.subtasks.length):0}
+function recalc(t){t.progress=completion(t);if(t.type==='task'&&t.subtasks.length){t.start=iso(Math.min(...t.subtasks.map(s=>day(s.start))));t.end=iso(Math.max(...t.subtasks.map(s=>day(s.end))))}return t}
+function validate(p){
+ if(!p||![1,2].includes(p.version)||typeof p.projectId!=='string'||!p.projectId||p.projectId.length>120||typeof p.title!=='string'||!p.title.trim()||p.title.length>120||!validDate(p.target)||!Array.isArray(p.tasks)||p.tasks.length>500)throw Error(tr('invalidData'));
+ const ids=new Set();let total=0;
+ function claim(id){if(typeof id!=='string'||!id||id.length>120||ids.has(id))throw Error(tr('invalidTask'));ids.add(id)}
+ function optional(value,max){if(value!==undefined&&(typeof value!=='string'||value.length>max))throw Error(tr('invalidTask'));return value||''}
+ const tasks=p.tasks.map(raw=>{
+  if(!raw||typeof raw.title!=='string'||!raw.title.trim()||raw.title.length>200||!Object.hasOwn(colors,raw.phase)||!validDate(raw.start)||!validDate(raw.end)||raw.end<raw.start||!['task','milestone'].includes(raw.type)||(raw.type==='milestone'&&raw.start!==raw.end)||typeof raw.notes!=='string'||raw.notes.length>3000)throw Error(tr('invalidTask'));
+  claim(raw.id);if(p.version===1&&(!Number.isFinite(raw.progress)||raw.progress<0||raw.progress>100))throw Error(tr('invalidTask'));
+  const t={id:raw.id,title:raw.title.trim(),titleEn:optional(raw.titleEn,200)||(p.version===1?knownTitles.get(raw.title)||'':''),phase:raw.phase,start:raw.start,end:raw.end,type:raw.type,notes:raw.notes,notesEn:optional(raw.notesEn,3000)||(p.version===1?knownNotes.get(raw.notes)||'':''),subtasks:[],progress:0};
+  let children=raw.subtasks;
+  if(p.version===1&&!children){children=raw.progress===100?[{id:raw.id+'-legacy-done',title:'Penyelesaian kegiatan',titleEn:'Task completion',start:raw.start,end:raw.end,done:true,notes:'',notesEn:''}]:[];if(raw.progress>0&&raw.progress<100)t.previousProgress=raw.progress}
+  if(!Array.isArray(children)||children.length>200)throw Error(tr('invalidTask'));
+  if(raw.previousProgress!==undefined){if(!Number.isFinite(raw.previousProgress)||raw.previousProgress<0||raw.previousProgress>100)throw Error(tr('invalidTask'));t.previousProgress=raw.previousProgress}
+  t.subtasks=children.map(s=>{if(!s||typeof s.title!=='string'||!s.title.trim()||s.title.length>200||!validDate(s.start)||!validDate(s.end)||s.end<s.start||typeof s.done!=='boolean')throw Error(tr('invalidTask'));claim(s.id);if(raw.type==='milestone'&&(s.start!==raw.start||s.end!==raw.start))throw Error(tr('invalidMilestone'));total++;return{id:s.id,title:s.title.trim(),titleEn:optional(s.titleEn,200),start:s.start,end:s.end,done:s.done,notes:optional(s.notes,3000),notesEn:optional(s.notesEn,3000)}});
+  return recalc(t);
+ });
+ if(total>5000)throw Error(tr('invalidTask'));
+ const view=p.view||{};
+ return{version:2,projectId:p.projectId,title:p.title.trim(),titleEn:optional(p.titleEn,120),target:p.target,updatedAt:Number.isFinite(Date.parse(p.updatedAt))?p.updatedAt:new Date().toISOString(),lang:p.lang==='en'?'en':'id',view:{zoom:Number.isInteger(view.zoom)&&view.zoom>=0&&view.zoom<=3?view.zoom:2,expanded:Array.isArray(view.expanded)?view.expanded.filter(id=>tasks.some(t=>t.id===id)).slice(0,500):tasks.length?[tasks[0].id]:[]},tasks};
+}
+let state=validate(seed),storageOk=true,saveHasRun=false;
+const storageKey=()=> 'jagad-planner:'+state.projectId;
+try{const cached=localStorage.getItem(storageKey());if(cached){const c=validate(JSON.parse(cached));if(c.projectId===state.projectId&&Date.parse(c.updatedAt)>Date.parse(state.updatedAt))state=c}}catch(e){storageOk=false}
+language=state.lang;
+let selected={taskId:state.tasks[0]?.id||null,subId:null},history=[],scale,timer,resizeTimer;
+const sheet=$('sheet');
+function parent(){return state.tasks.find(t=>t.id===selected.taskId)}
+function current(){const t=parent();return selected.subId?t?.subtasks.find(s=>s.id===selected.subId):t}
+function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(timer);timer=setTimeout(()=>$('toast').hidden=true,5000)}
+function saveLabel(){return storageOk?tr(saveHasRun?'stored':'storageReady'):tr('storageUnavailable')}
+function persist(){state.updatedAt=new Date().toISOString();state.lang=language;saveHasRun=true;try{localStorage.setItem(storageKey(),JSON.stringify(state));storageOk=true}catch(e){storageOk=false}$('save-state').textContent=saveLabel();$('undo').disabled=!history.length}
+function mutate(fn){const previous=copy(state),oldSelected={...selected};try{fn();state=validate(state);history.push({state:previous,selected:oldSelected});if(history.length>40)history.shift();persist();render();return true}catch(e){state=previous;selected=oldSelected;toast(e.message);render();return false}}
+function update(taskId,subId,patch){return mutate(()=>{const t=state.tasks.find(t=>t.id===taskId),item=subId?t?.subtasks.find(s=>s.id===subId):t;if(!item)throw Error(tr('invalidTask'));if(patch.title&&patch.title!==item.title&&['New task','New subtask','New milestone'].includes(item.titleEn)&&!Object.hasOwn(patch,'titleEn'))item.titleEn='';if(patch.titleEn&&['Kegiatan baru','Subkegiatan baru','Tonggak baru'].includes(item.title)&&!Object.hasOwn(patch,'title'))item.title=patch.titleEn;Object.assign(item,patch);
+ if(subId&&t.type==='milestone'&&(Object.hasOwn(patch,'start')||Object.hasOwn(patch,'end'))){const date=patch.start||patch.end;t.start=t.end=date;t.subtasks.forEach(s=>s.start=s.end=date)}
+ if(!subId&&t.type==='milestone'){const date=Object.hasOwn(patch,'end')&&!Object.hasOwn(patch,'start')?patch.end:t.start;t.start=t.end=date;t.subtasks.forEach(s=>s.start=s.end=date)}
+})}
+function selectedExists(){if(!parent()){selected={taskId:state.tasks[0]?.id||null,subId:null}}else if(selected.subId&&!current())selected.subId=null}
+function select(taskId,subId=null){selected={taskId,subId};document.querySelectorAll('.grid-row').forEach(r=>r.classList.toggle('selected',r.dataset.task===taskId&&(r.dataset.sub||null)===subId));document.querySelectorAll('.bar').forEach(b=>b.classList.toggle('selected',b.dataset.task===taskId&&(b.dataset.sub||null)===subId));renderEditor()}
+function expanded(t){return state.view.expanded.includes(t.id)}
+function toggle(t){state.view.expanded=expanded(t)?state.view.expanded.filter(id=>id!==t.id):[...state.view.expanded,t.id];if(selected.taskId===t.id&&!expanded(t))selected.subId=null;persist();render()}
+function refreshLanguage(){language=state.lang;document.documentElement.lang=language;document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=tr(e.dataset.i18n));$('language-toggle').setAttribute('aria-checked',String(language==='en'));$('zoom-out').setAttribute('aria-label',tr('zoomOut'));$('zoom-in').setAttribute('aria-label',tr('zoomIn'));sheet.setAttribute('aria-label',tr('sheetLabel'));$('save-state').textContent=saveLabel()}
+function buildScale(){
+ const starts=state.tasks.map(t=>day(t.start)),ends=state.tasks.map(t=>day(t.end)),a=Math.min(...starts,day(state.target)),b=Math.max(...ends,day(state.target));
+ const s=new Date(a*DAY),e=new Date(b*DAY),start=Date.UTC(s.getUTCFullYear(),s.getUTCMonth(),1)/DAY,end=Date.UTC(e.getUTCFullYear(),e.getUTCMonth()+1,1)/DAY;
+ const left=parseFloat(getComputedStyle(sheet).getPropertyValue('--left'))||568,z=state.view.zoom;
+ const width=z===0?Math.max(480,sheet.clientWidth-left-3):(end-start)*([0,1.35,4,6.5][z]);
+ const px=width/(end-start),periods=[];let cursor=start;
+ while(cursor<end){const d=new Date(cursor*DAY),quarter=z<=1;const next=Math.min(end,Date.UTC(d.getUTCFullYear(),quarter?Math.floor(d.getUTCMonth()/3)*3+3:d.getUTCMonth()+1,1)/DAY),label=quarter?tr('quarter',{n:Math.floor(d.getUTCMonth()/3)+1}):new Intl.DateTimeFormat(locale(),{month:z===3?'long':'short',timeZone:'UTC'}).format(d);periods.push({left:(cursor-start)*px,width:(next-cursor)*px,label});cursor=next}
+ return{start,end,width,px,periods};
+}
+function renderHead(){const head=$('chart-head');head.replaceChildren();const fixed=el('div','fixed');['#',tr('task'),tr('start'),tr('end'),'%'].forEach((s,i)=>fixed.append(el('div','cell'+(i===2||i===3?' date-col':''),s)));const periods=el('div','periods');let cursor=scale.start;while(cursor<scale.end){const d=new Date(cursor*DAY),next=Math.min(scale.end,Date.UTC(d.getUTCFullYear()+1,0,1)/DAY),label=el('div','year',String(d.getUTCFullYear()));label.style.left=(cursor-scale.start)*scale.px+'px';label.style.width=(next-cursor)*scale.px+'px';periods.append(label);cursor=next}scale.periods.forEach(p=>{const e=el('div','period',p.label);e.style.left=p.left+'px';e.style.width=p.width+'px';periods.append(e)});head.append(fixed,periods)}
+function dateInput(t,s,field){const item=s||t,input=el('input');input.type='date';input.min='2000-01-01';input.max='2100-12-31';input.value=item[field];input.setAttribute('aria-label',tr(field==='start'?'start':'end')+': '+text(item));input.disabled=!s&&t.type==='task'&&t.subtasks.length>0;if(input.disabled)input.title=tr('summaryDates');input.addEventListener('focus',()=>select(t.id,s?.id||null));input.addEventListener('change',()=>{if(!validDate(input.value)){toast(tr('validDate'));input.value=item[field];return}update(t.id,s?.id||null,{[field]:input.value})});return input}
+function placeBar(bar,item,milestone){bar.style.left=(day(item.start)-scale.start+.5)*scale.px+'px';if(!milestone)bar.style.width=Math.max(6,(day(item.end)-day(item.start)+1)*scale.px)+'px'}
+function trackRow(t,s){const item=s||t,track=el('div','track');scale.periods.forEach(p=>{const line=el('div','gridline');line.style.left=p.left+'px';track.append(line)});const now=new Date(),today=day([now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-'));[[today,'today-line'],[day(state.target),'target-line']].forEach(([d,cls])=>{if(d>=scale.start&&d<scale.end){const line=el('div',cls);line.style.left=(d-scale.start+.5)*scale.px+'px';track.append(line)}});
+ const milestone=!s&&t.type==='milestone',bar=el('button','bar'+(milestone?' milestone':'')+(selected.taskId===t.id&&selected.subId===(s?.id||null)?' selected':''));bar.type='button';bar.dataset.task=t.id;if(s)bar.dataset.sub=s.id;bar.style.setProperty('--c',colors[t.phase]);const pct=s?(s.done?100:0):completion(t);bar.title=text(item)+'\n'+fmt(item.start,true)+(milestone?'':' → '+fmt(item.end,true))+'\n'+tr('completed',{percent:pct});bar.setAttribute('aria-label',bar.title);if(!milestone){const fill=el('span','fill');fill.style.width=pct+'%';bar.append(fill);if(s||!t.subtasks.length){['start','end'].forEach((field,i)=>{const h=el('span','handle '+(i?'right':'left'));h.dataset.edge=field;h.setAttribute('aria-hidden','true');bar.append(h)})}}
+ placeBar(bar,item,milestone);bar.addEventListener('pointerdown',ev=>beginDrag(ev,t,s,bar));bar.addEventListener('click',()=>select(t.id,s?.id||null));bar.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();select(t.id,s?.id||null);$('edit-title').focus()}});track.append(bar);return track}
+function nameInput(t,s){const item=s||t,input=el('input');input.type='text';input.value=text(item);input.title=text(item);input.maxLength=200;input.setAttribute('aria-label',tr('nameLabel',{name:text(item)}));input.addEventListener('focus',()=>select(t.id,s?.id||null));input.addEventListener('change',()=>{const value=input.value.trim();if(!value){toast(tr('emptyTitle'));input.value=text(item);return}update(t.id,s?.id||null,{[fieldKey('title')]:value})});return input}
+function checkInput(t,s){const check=el('input','check-input');check.type='checkbox';check.checked=s.done;check.setAttribute('aria-label',tr('checkDone',{name:text(s)}));check.addEventListener('change',()=>update(t.id,s.id,{done:check.checked}));return check}
+function taskRow(t,index,s=null,subIndex=0){const isSelected=selected.taskId===t.id&&selected.subId===(s?.id||null),row=el('div','grid-row'+(isSelected?' selected':'')+(s?' sub-row'+(s.done?' done':''):(t.subtasks.length&&t.type==='task'?' summary':'')));row.dataset.task=t.id;if(s)row.dataset.sub=s.id;const fixed=el('div','fixed'),idx=el('div','cell index'+(s?' sub-index':''),s?(index+1)+'.'+(subIndex+1):String(index+1)),activity=el('div','cell activity'),top=el('div','activity-top');
+ if(s){top.append(checkInput(t,s),nameInput(t,s));activity.append(top)}else{const disclosure=el('button','disclosure',expanded(t)?'▾':'▸');disclosure.type='button';disclosure.setAttribute('aria-expanded',String(expanded(t)));disclosure.setAttribute('aria-label',tr('toggleChildren',{name:text(t)}));disclosure.addEventListener('click',()=>toggle(t));top.append(disclosure,nameInput(t));activity.append(top,el('div','phase-line',(t.type==='milestone'?'◆ '+tr('milestone')+' · ':'')+tr(t.phase)))}
+ const start=el('div','cell date-col'),end=el('div','cell date-col');start.append(dateInput(t,s,'start'));end.append(dateInput(t,s,'end'));const pct=el('div','cell percentage');pct.title=tr('progressTitle');if(s){pct.append(el('span','parent-status',s.done?'✓':'—'))}else{const value=completion(t);pct.append(el('span','progress-value',value+'%'),el('span','progress-count',t.subtasks.filter(c=>c.done).length+'/'+t.subtasks.length));pct.setAttribute('aria-label',tr('progressLabel',{name:text(t)})+' '+value+'%')}
+ fixed.append(idx,activity,start,end,pct);fixed.addEventListener('click',ev=>{if(!ev.target.closest('input,button'))select(t.id,s?.id||null)});row.append(fixed,trackRow(t,s));return row}
+function addSubRow(t){const row=el('div','grid-row add-sub-row'),fixed=el('div','fixed'),add=el('button','inline-add',tr('addSubtask'));add.type='button';add.style.gridColumn='2 / -1';add.addEventListener('click',()=>addSubtask(t.id));fixed.append(el('div'),add);row.append(fixed,el('div','track'));return row}
+function render(){const x=sheet.scrollLeft,y=sheet.scrollTop;selectedExists();refreshLanguage();$('project-title').textContent=text(state);document.title=text(state);$('target-display').textContent=fmt(state.target);$('setting-title').value=text(state);$('setting-target').value=state.target;$('zoom').value=state.view.zoom;$('zoom-description').textContent=tr(['allPlan','quarterView','monthView','monthWide'][state.view.zoom]);$('zoom-out').disabled=state.view.zoom===0;$('zoom-in').disabled=state.view.zoom===3;$('add-subtask').disabled=!parent();scale=buildScale();sheet.style.setProperty('--chart',scale.width+'px');renderHead();const rows=$('rows');rows.replaceChildren();state.tasks.forEach((t,i)=>{rows.append(taskRow(t,i));if(expanded(t)){t.subtasks.forEach((s,j)=>rows.append(taskRow(t,i,s,j)));rows.append(addSubRow(t))}});if(!state.tasks.length)rows.append(el('div','empty',tr('empty')));renderEditor();$('undo').disabled=!history.length;sheet.scrollLeft=x;sheet.scrollTop=y}
+function renderEditor(){const t=parent(),item=current();$('editor').hidden=!item;if(!item)return;const s=selected.subId?item:null,index=state.tasks.indexOf(t),si=s?t.subtasks.indexOf(s):-1;$('editor-heading').textContent=tr(s?'subtaskDetail':'taskDetail',{number:s?(index+1)+'.'+(si+1):index+1});$('editor-parent').textContent=s?tr('childOf',{name:text(t)}):'';$('move-up').disabled=s?si===0:index===0;$('move-down').disabled=s?si===t.subtasks.length-1:index===state.tasks.length-1;$('delete').textContent=tr(s?'deleteSubtask':'deleteTask');$('edit-title').value=text(item);$('edit-phase').value=t.phase;$('edit-phase').disabled=!!s;$('edit-start').value=item.start;$('edit-end').value=item.end;const summary=!s&&t.type==='task'&&t.subtasks.length>0;$('edit-start').disabled=summary;$('edit-end').disabled=summary||t.type==='milestone';$('edit-type').value=s?'task':t.type;$('edit-type').disabled=!!s;$('edit-notes').value=text(item,'notes');$('edit-other-title').value=item[language==='en'?'title':'titleEn']||'';$('edit-other-notes').value=item[language==='en'?'notes':'notesEn']||'';$('other-language-title').textContent=tr(language==='en'?'otherTitleId':'otherTitle');$('other-language-notes').textContent=tr(language==='en'?'otherNotesId':'otherNotes');const explanation=$('progress-explanation');explanation.replaceChildren();explanation.append(el('div','',tr('progressSummary',{done:t.subtasks.filter(c=>c.done).length,total:t.subtasks.length,percent:completion(t)})));if(summary)explanation.append(el('div','',tr('summaryDates')));if(t.previousProgress)explanation.append(el('div','legacy-progress',tr('oldProgress',{percent:t.previousProgress})));$('checklist-section').hidden=!!s;const list=$('checklist-list');list.replaceChildren();if(!s){if(!t.subtasks.length)list.append(el('div','checklist-empty',tr('noChildren')));t.subtasks.forEach(sub=>{const row=el('div','checklist-item'+(sub.done?' done':'')),button=el('button','',text(sub));button.type='button';button.addEventListener('click',()=>{if(!expanded(t))state.view.expanded.push(t.id);selected={taskId:t.id,subId:sub.id};persist();render()});row.append(checkInput(t,sub),button);list.append(row)})}}
+function beginDrag(ev,t,s,bar){if(ev.button!==0)return;ev.preventDefault();select(t.id,s?.id||null);const item=s||t,original=copy(item),pointer=ev.pointerId,x=ev.clientX,edge=ev.target.dataset.edge;let moved=false;const preview=copy(item);bar.setPointerCapture(pointer);
+ function move(e){if(e.pointerId!==pointer)return;const delta=Math.round((e.clientX-x)/scale.px);if(Math.abs(e.clientX-x)>3)moved=true;let a=day(original.start),b=day(original.end);if(edge==='start')a=Math.min(b,a+delta);else if(edge==='end')b=Math.max(a,b+delta);else{a+=delta;b+=delta}if(a<day('2000-01-01')||b>day('2100-12-31'))return;preview.start=iso(a);preview.end=iso(b);placeBar(bar,preview,!s&&t.type==='milestone')}
+ function clean(){bar.removeEventListener('pointermove',move);bar.removeEventListener('pointerup',finish);bar.removeEventListener('pointercancel',cancel);if(bar.hasPointerCapture(pointer))bar.releasePointerCapture(pointer)}
+ function finish(e){if(e.pointerId!==pointer)return;clean();if(!moved||preview.start===original.start&&preview.end===original.end){placeBar(bar,item,!s&&t.type==='milestone');return}if(!s&&t.subtasks.length){const delta=day(preview.start)-day(original.start);mutate(()=>{t.subtasks.forEach(child=>{child.start=iso(day(child.start)+delta);child.end=iso(day(child.end)+delta)});t.start=preview.start;t.end=t.type==='milestone'?preview.start:preview.end})}else update(t.id,s?.id||null,{start:preview.start,end:preview.end})}
+ function cancel(e){if(e.pointerId!==pointer)return;clean();placeBar(bar,item,!s&&t.type==='milestone')}
+ bar.addEventListener('pointermove',move);bar.addEventListener('pointerup',finish);bar.addEventListener('pointercancel',cancel);
+}
+function addTask(type){if(state.tasks.length>=500){toast(tr('limit'));return}let newId;const ok=mutate(()=>{const t=parent(),start=t?t.start:state.target;newId=uid('task');const item={id:newId,title:type==='milestone'?'Tonggak baru':'Kegiatan baru',titleEn:type==='milestone'?'New milestone':'New task',phase:t?t.phase:'prep',start,end:type==='milestone'?start:iso(Math.min(day('2100-12-31'),day(start)+29)),type,notes:'',notesEn:'',subtasks:[],progress:0};state.tasks.splice(t?state.tasks.indexOf(t)+1:state.tasks.length,0,item);selected={taskId:newId,subId:null};state.view.expanded.push(newId)});if(ok){reveal(newId);$('edit-title').focus();$('edit-title').select()}}
+function addSubtask(taskId){const t=state.tasks.find(t=>t.id===taskId);if(!t)return;if(t.subtasks.length>=200){toast(tr('limit'));return}const ok=mutate(()=>{const s={id:uid('sub'),title:'Subkegiatan baru',titleEn:'New subtask',start:t.start,end:t.end,done:false,notes:'',notesEn:''};t.subtasks.push(s);selected={taskId:t.id,subId:s.id};if(!expanded(t))state.view.expanded.push(t.id)});if(ok){reveal(t.id,selected.subId);$('edit-title').focus();$('edit-title').select()}}
+function reveal(taskId,subId=null){const row=Array.from(document.querySelectorAll('.grid-row')).find(r=>r.dataset.task===taskId&&(r.dataset.sub||null)===subId);if(row)sheet.scrollTop=Math.max(0,row.offsetTop-sheet.clientHeight/2)}
+function reorder(offset){const t=parent(),item=current();if(!item)return;const list=selected.subId?t.subtasks:state.tasks,i=list.indexOf(item),j=i+offset;if(j<0||j>=list.length)return;mutate(()=>{[list[i],list[j]]=[list[j],list[i]]})}
+function setZoom(value){value=Math.max(0,Math.min(3,Number(value)));if(value===state.view.zoom)return;const left=parseFloat(getComputedStyle(sheet).getPropertyValue('--left'))||568,half=Math.max(0,sheet.clientWidth-left)/2,anchor=scale.start+(sheet.scrollLeft+half)/scale.px;state.view.zoom=value;persist();render();sheet.scrollLeft=Math.max(0,(anchor-scale.start)*scale.px-half)}
+['title','notes','phase','start','end','type'].forEach(field=>$('edit-'+field).addEventListener('change',e=>{if(!current())return;let value=e.target.value;if(field==='title'){value=value.trim();if(!value){toast(tr('emptyTitle'));renderEditor();return}}if(['start','end'].includes(field)&&!validDate(value)){toast(tr('validDate'));renderEditor();return}update(selected.taskId,selected.subId,{[field==='title'||field==='notes'?fieldKey(field):field]:value})}));
+['title','notes'].forEach(field=>$('edit-other-'+field).addEventListener('change',e=>{const item=current();if(!item)return;const key=language==='en'?field:field+'En',value=field==='title'?e.target.value.trim():e.target.value;if(field==='title'&&key==='title'&&!value){toast(tr('emptyTitle'));renderEditor();return}update(selected.taskId,selected.subId,{[key]:value})}));
+$('add').onclick=()=>addTask('task');$('add-milestone').onclick=()=>addTask('milestone');$('add-subtask').onclick=()=>{if(parent())addSubtask(parent().id)};$('editor-add-subtask').onclick=()=>{if(parent())addSubtask(parent().id)};
+$('delete').onclick=()=>{const t=parent();if(!t)return;mutate(()=>{if(selected.subId){t.subtasks=t.subtasks.filter(s=>s.id!==selected.subId);selected.subId=null}else{const i=state.tasks.indexOf(t);state.tasks.splice(i,1);selected={taskId:state.tasks[Math.min(i,state.tasks.length-1)]?.id||null,subId:null};state.view.expanded=state.view.expanded.filter(id=>id!==t.id)}});toast(tr('removed'))};
+$('undo').onclick=()=>{if(!history.length)return;const previous=history.pop(),lang=state.lang,view=state.view;state=previous.state;state.lang=lang;state.view=view;selected=previous.selected;state=validate(state);selectedExists();persist();render();toast(tr('undone'))};
+$('move-up').onclick=()=>reorder(-1);$('move-down').onclick=()=>reorder(1);
+$('collapse-all').onclick=()=>{state.view.expanded=[];selected.subId=null;persist();render()};$('expand-all').onclick=()=>{state.view.expanded=state.tasks.map(t=>t.id);persist();render()};
+$('zoom').oninput=e=>setZoom(e.target.value);$('zoom-out').onclick=()=>setZoom(state.view.zoom-1);$('zoom-in').onclick=()=>setZoom(state.view.zoom+1);
+$('language-toggle').onclick=()=>{state.lang=state.lang==='en'?'id':'en';language=state.lang;persist();render()};
+$('setting-title').onchange=e=>{const value=e.target.value.trim();if(!value){toast(tr('emptyProject'));e.target.value=text(state);return}mutate(()=>state[fieldKey('title')]=value)};
+$('setting-target').onchange=e=>{if(!validDate(e.target.value)){toast(tr('validDate'));e.target.value=state.target;return}mutate(()=>state.target=e.target.value)};
+function download(content,name,type){const url=URL.createObjectURL(new Blob([content],{type})),a=el('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000)}
+const stamp=()=>new Date().toISOString().slice(0,10);
+$('export-json').onclick=()=>{persist();download(JSON.stringify(state,null,2),'Data_Planner_Disertasi_'+stamp()+'.json','application/json');toast(tr('backupSaved'))};
+$('save-html').onclick=()=>{persist();const clone=document.documentElement.cloneNode(true);clone.querySelector('#planner-data').textContent=JSON.stringify(state).replace(/</g,'\\u003c');clone.querySelector('#rows').replaceChildren();clone.querySelector('#chart-head').replaceChildren();clone.querySelector('#checklist-list').replaceChildren();clone.querySelector('#toast').hidden=true;clone.querySelector('#save-state').textContent='';clone.querySelector('#undo').disabled=true;download('<!doctype html>\n'+clone.outerHTML,'Planner_Disertasi_'+stamp()+'.html','text/html;charset=utf-8');toast(tr('htmlSaved'))};
+$('import-json').onclick=()=>$('file-input').click();$('file-input').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>5000000)throw Error(tr('largeFile'));const data=validate(JSON.parse(await file.text()));mutate(()=>{state=data;language=data.lang;selected={taskId:state.tasks[0]?.id||null,subId:null}});toast(tr('imported'))}catch(err){toast(tr('importFailed',{message:err.message}))}finally{e.target.value=''}};
+let printZoom=null;$('print').onclick=()=>{printZoom=state.view.zoom;state.view.zoom=0;render();window.print()};window.addEventListener('afterprint',()=>{if(printZoom!==null){state.view.zoom=printZoom;printZoom=null;render()}});
+window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(render,140)});
+render();
+})();
+
+</script>
+</body>
+</html>
