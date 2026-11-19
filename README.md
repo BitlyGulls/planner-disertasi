@@ -4,7 +4,7 @@ Planner disertasi berbasis HTML untuk Satrio Tunggul Satoto Jagad. Antarmuka Ind
 
 ## Membuka aplikasi
 
-Buka `index.html` di Chrome atau Edge, atau gunakan situs GitHub Pages repositori ini setelah diaktifkan.
+Buka [Planner Disertasi](https://bitlygulls.github.io/planner-disertasi/) atau buka `index.html` di Chrome atau Edge.
 
 ## Penggunaan
 
@@ -13,6 +13,7 @@ Buka `index.html` di Chrome atau Edge, atau gunakan situs GitHub Pages repositor
 - Centang subkegiatan yang selesai. Persentase induk dihitung otomatis: jumlah yang dicentang dibagi jumlah seluruh subkegiatan, dengan bobot yang sama dan pembulatan ke bilangan terdekat. Induk tanpa subkegiatan bernilai 0%.
 - Edit tanggal pada subkegiatan. Rentang tanggal induk mengikuti subkegiatannya. Menggeser batang induk turut menggeser seluruh subkegiatan; perubahan tanggal tidak menjadwalkan ulang kegiatan lain secara otomatis.
 - Gunakan tombol **− / +** atau penggeser untuk mengubah tampilan triwulan dan bulanan. Tampilan awal adalah bulanan.
+- Tampilan awal menggunakan **tema gelap** dan **bahasa Inggris**. Saklar **Light / Dark** dan **ID / EN** menyimpan pilihan terakhir Anda di browser. Data jadwal dan checklist lama tetap dipertahankan saat pengaturan awal ini diperbarui.
 - Gunakan saklar **ID / EN** untuk mengganti bahasa. Nama dan catatan bawaan tersedia dalam dua bahasa. Untuk teks tambahan, isi **Terjemahan opsional**; aplikasi tidak menerjemahkan teks baru secara otomatis.
 - Gunakan **Urungkan** untuk membatalkan perubahan terakhir pada sesi yang sedang berjalan.
 
@@ -37,7 +38,7 @@ Jadwal bawaan adalah **rencana kerja sementara**, bukan kalender akademik atau k
 
 ## English
 
-A standalone bilingual dissertation planner with an editable Gantt chart, expandable subtasks, checklists, and monthly/quarterly zoom. Parent progress is the equally weighted fraction of completed subtasks. Parent dates follow the subtasks, and dragging a parent shifts them together.
+A standalone bilingual dissertation planner with an editable Gantt chart, expandable subtasks, checklists, monthly/quarterly zoom, and a light/dark theme switch. The initial appearance is dark with English selected. Your later theme and language choices are remembered in the current browser. Parent progress is the equally weighted fraction of completed subtasks. Parent dates follow the subtasks, and dragging a parent shifts them together.
 
 Open `index.html` in Chrome or Edge, or use this repository's GitHub Pages site. Use the ID/EN switch for the interface and built-in content. Additional text can be entered in both languages through Optional translation.
 
