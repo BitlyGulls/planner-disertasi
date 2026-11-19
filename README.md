@@ -1,47 +1,56 @@
 # Planner Disertasi
 
-Planner disertasi berbasis HTML untuk Satrio Tunggul Satoto Jagad. Antarmuka Indonesia–Inggris, diagram Gantt, subkegiatan, dan checklist tersedia tanpa instalasi atau dependensi eksternal.
+Planner HTML Indonesia–Inggris dengan diagram Gantt, subkegiatan, checklist, dan tombol simpan ke Google Drive.
 
-## Membuka aplikasi
+Buka [Planner Disertasi](https://bitlygulls.github.io/planner-disertasi/).
 
-Buka [Planner Disertasi](https://bitlygulls.github.io/planner-disertasi/) atau buka `index.html` di Chrome atau Edge.
+## Simpan dan lanjutkan di perangkat lain
 
-## Penggunaan
+1. Klik **Open Google Drive / Buka Google Drive**, lalu pilih akun Google Anda. Planner membuka simpanan terakhir dari akun tersebut.
+2. Edit kegiatan, tanggal, dan checklist. Status menunjukkan **Unsaved changes / Perubahan belum disimpan**.
+3. Klik **Save to Google Drive / Simpan ke Google Drive**. Tunggu status **Saved to Google Drive / Tersimpan di Google Drive**.
+4. Pada PC, laptop, atau HP lain, buka situs yang sama dan klik **Open Google Drive** dengan akun yang sama.
+5. Gunakan **Reload from Drive / Muat ulang dari Drive** untuk membuka versi tersimpan terbaru pada tab yang sudah terbuka.
 
-- Tambahkan kegiatan dan tonggak melalui tombol di bagian atas.
-- Pada HP portrait, gunakan tab **Tasks / Kegiatan** untuk daftar dan checklist; tab **Gantt** menampilkan diagram yang dapat digeser. Ketuk nama kegiatan atau tombol detail subkegiatan untuk mengedit melalui panel bawah.
-- Pilih kegiatan, lalu klik **+ Subkegiatan**. Gunakan panah **▸** di samping nama kegiatan untuk membuka atau menutup daftar subkegiatan.
-- Centang subkegiatan yang selesai. Persentase induk dihitung otomatis: jumlah yang dicentang dibagi jumlah seluruh subkegiatan, dengan bobot yang sama dan pembulatan ke bilangan terdekat. Induk tanpa subkegiatan bernilai 0%.
-- Subkegiatan baru dimulai dengan durasi satu hari. Tetapkan tanggal mulai dan selesai subkegiatan itu sendiri; batangnya mengikuti rentang tersebut, bukan seluruh durasi induk.
-- Edit tanggal pada subkegiatan. Rentang tanggal induk mengikuti subkegiatannya. Menggeser batang induk turut menggeser seluruh subkegiatan; perubahan tanggal tidak menjadwalkan ulang kegiatan lain secara otomatis.
-- Gunakan tombol **− / +** atau penggeser untuk mengubah tampilan triwulan dan bulanan. Tampilan awal adalah bulanan.
-- Tampilan awal menggunakan **tema gelap** dan **bahasa Inggris**. Saklar **Light / Dark** dan **ID / EN** menyimpan pilihan terakhir Anda di browser. Data jadwal dan checklist lama tetap dipertahankan saat pengaturan awal ini diperbarui.
-- Gunakan saklar **ID / EN** untuk mengganti bahasa. Nama dan catatan bawaan tersedia dalam dua bahasa. Untuk teks tambahan, isi **Terjemahan opsional**; aplikasi tidak menerjemahkan teks baru secara otomatis.
-- Gunakan **Urungkan** untuk membatalkan perubahan terakhir pada sesi yang sedang berjalan.
+**Tidak ada autosave ke Drive.** Perubahan hanya diunggah saat tombol Save ditekan, termasuk tombol pilihan **Save this version** saat ada perbedaan versi. Pintasan Ctrl+S atau Cmd+S juga menjalankan Save to Google Drive pada situs daring. Tema, bahasa, zoom, dan daftar yang sedang dibuka mengikuti browser masing-masing.
 
-## Penyimpanan dan cadangan
+Draf lokal disimpan di browser sebagai bantuan melanjutkan pekerjaan. Draf tersebut belum tersedia di perangkat lain sampai Anda menekan Save. Saat sesi Google berakhir, tekan Save atau Open Google Drive untuk menghubungkan kembali. Jika ada versi berbeda di Drive, pilih **Open Drive version** atau **Save this version**. Jangan menyunting rencana yang sama bersamaan pada banyak perangkat; setelah berpindah, buka simpanan terbaru terlebih dahulu.
 
-Perubahan disimpan di penyimpanan lokal browser jika tersedia. Perubahan tersebut **tidak otomatis tersimpan ke GitHub atau tersinkron ke perangkat lain**. Situs tidak mengirim jadwal atau checklist yang diedit ke layanan eksternal.
+Setiap Save yang mengubah data membuat snapshot baru; simpanan sebelumnya tetap ada. Aplikasi memakai yang terbaru berdasarkan waktu pembuatan di Drive. Belum tersedia antarmuka untuk memilih riwayat snapshot. Dua penyimpanan serentak dapat sama-sama tersimpan; versi dengan waktu pembuatan terbaru akan dibuka berikutnya. Buat ekspor JSON untuk cadangan yang mudah Anda kelola.
 
-- **Simpan HTML**: unduh salinan aplikasi lengkap dengan jadwal, checklist, dan bahasa terbaru.
-- **Cadangkan data**: unduh JSON berisi data planner.
-- **Buka data**: muat JSON cadangan, termasuk format versi pertama planner.
+## Lokasi dan akses data
 
-Penyimpanan versi berkas lokal dan situs daring dapat berbeda. Untuk membawa perubahan dari berkas lokal ke situs, gunakan **Cadangkan data**, lalu **Buka data** pada situs. Buat cadangan sebelum mengganti browser, perangkat, atau menghapus data situs. Jika penyimpanan lokal tidak tersedia, gunakan unduhan HTML atau JSON.
+Simpanan berada di **folder data aplikasi pribadi** di Google Drive (`appDataFolder`). Folder ini tersembunyi dari daftar berkas Drive dan dibuka melalui planner. Aplikasi hanya meminta akses ke data aplikasinya sendiri serta identitas dan email akun; aplikasi tidak meminta akses ke seluruh dokumen Drive Anda. Lihat [penjelasan Google](https://developers.google.com/workspace/drive/api/guides/appdata).
 
-## Status jadwal
+Tidak ada Firebase atau database tambahan dalam alur penyimpanan planner ini. Situs tetap di GitHub Pages. Progres pribadi tidak dimasukkan ke repositori GitHub. Setiap snapshot dibatasi 5 MB. Snapshot menggunakan kapasitas akun Drive, dan pemakaian tetap mengikuti batas layanan Google.
 
-Jadwal bawaan adalah **rencana kerja sementara**, bukan kalender akademik atau keputusan promotor. Waktu seminar, ujian, dan persyaratan publikasi perlu mengikuti ketentuan prodi. Jadwal artikel menunjukkan target pengiriman, bukan kepastian penerimaan. Persentase awal 0% adalah isian awal aplikasi, bukan penilaian kemajuan penelitian.
+Koneksi memakai Google Identity Services. Token akses hanya ada di memori tab, bukan di HTML, GitHub, atau penyimpanan browser. ID klien yang ada dalam kode adalah identitas publik aplikasi dan bukan kata sandi.
 
-## Struktur repositori
+## Kegiatan dan jadwal
 
-- `index.html`: aplikasi mandiri, mencakup tampilan, logika, dan jadwal awal.
-- `.nojekyll`: menyajikan aplikasi sebagai berkas statis melalui GitHub Pages.
+- Tambahkan kegiatan, subkegiatan, atau tonggak melalui tombol bagian atas. Buka daftar subkegiatan melalui panah di samping kegiatan.
+- Centang subkegiatan yang selesai. Persentase induk = jumlah subkegiatan dicentang dibagi seluruh subkegiatan, berbobot sama dan dibulatkan. Induk tanpa subkegiatan bernilai 0%.
+- Subkegiatan baru berdurasi satu hari. Atur tanggal mulai dan selesainya; batang subkegiatan mengikuti tanggalnya sendiri.
+- Tanggal induk merangkum rentang subkegiatannya. Menggeser induk turut menggeser seluruh subkegiatan.
+- Gunakan zoom untuk tampilan bulanan atau triwulan. Tampilan awal bulanan, tema gelap, dan bahasa Inggris.
+- Pada HP portrait, tab **Tasks / Kegiatan** menampilkan daftar dan checklist; tab **Gantt** menampilkan diagram yang dapat digeser. Detail diedit melalui panel bawah.
+- Saklar ID/EN mengganti antarmuka dan teks bawaan. Teks tambahan dapat diisi dalam dua bahasa melalui Terjemahan opsional.
+- Gunakan Undo untuk membatalkan perubahan pada sesi berjalan.
+
+## Cadangan dan salinan HTML
+
+- **Save HTML / Simpan HTML** mengunduh aplikasi lengkap beserta data terbaru.
+- **Back up data / Cadangkan data** mengunduh JSON progres.
+- **Open data / Buka data** memuat JSON cadangan. Tekan Save to Google Drive jika ingin mengirim hasil impor ke akun.
+
+HTML yang dibuka sebagai berkas lokal (`file://`) mendukung pengeditan dan draf lokal, tetapi tidak login atau menyimpan ke Google Drive. Untuk melanjutkan melalui Drive, buka situs daring dan impor JSON cadangan. Ekspor cadangan sebelum menghapus data browser.
+
+## Status akademis
+
+Jadwal bawaan adalah rencana sementara untuk dibahas bersama promotor. Tanggal seminar dan ujian mengikuti ketentuan prodi. Jadwal artikel merupakan target pengiriman, bukan kepastian penerimaan. Persentase awal 0% merupakan isian awal, bukan penilaian kemajuan penelitian.
 
 ## English
 
-A standalone bilingual dissertation planner with an editable Gantt chart, expandable subtasks, checklists, monthly/quarterly zoom, and a light/dark theme switch. The initial appearance is dark with English selected. Your later theme and language choices are remembered in the current browser. Parent progress is the equally weighted fraction of completed subtasks. Parent dates follow the subtasks, and dragging a parent shifts them together.
+A bilingual dissertation planner with an editable Gantt chart, expandable subtasks, checklist-based progress, monthly/quarterly zoom, and dark/light themes. Dark mode and English are the defaults. Portrait mobile uses a task list with a separate Gantt tab.
 
-Open `index.html` in Chrome or Edge, or use this repository's GitHub Pages site. Use the ID/EN switch for the interface and built-in content. Additional text can be entered in both languages through Optional translation.
-
-Changes stay in the current browser and are not automatically committed to GitHub or synchronized between devices. Use Save HTML or Back up data to retain your changes, and Open data to restore a JSON backup. The initial academic schedule is provisional and requires supervisory and program confirmation.
+Use **Open Google Drive** with the same account on each device. Edit, then press **Save to Google Drive** and wait for the saved status. Changes are never uploaded automatically. A browser-local draft is kept separately. Use **Reload from Drive** to open the latest saved version. If versions differ, choose explicitly which one to keep. Each changed save creates a private app-data snapshot; concurrent saves are retained and the latest is opened. Export JSON for a manageable backup. Local HTML copies support offline editing; Google Drive access requires the online site.

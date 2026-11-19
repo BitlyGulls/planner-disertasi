@@ -1,0 +1,6 @@
+# Personal exports contain progress; keep them out of this public source repository.
+Data_Planner_Disertasi_*.json
+Planner_Disertasi_*.html
+.env
+.env.*
+!.env.example
