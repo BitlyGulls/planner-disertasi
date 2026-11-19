@@ -9,8 +9,10 @@ Buka [Planner Disertasi](https://bitlygulls.github.io/planner-disertasi/) atau b
 ## Penggunaan
 
 - Tambahkan kegiatan dan tonggak melalui tombol di bagian atas.
+- Pada HP portrait, gunakan tab **Tasks / Kegiatan** untuk daftar dan checklist; tab **Gantt** menampilkan diagram yang dapat digeser. Ketuk nama kegiatan atau tombol detail subkegiatan untuk mengedit melalui panel bawah.
 - Pilih kegiatan, lalu klik **+ Subkegiatan**. Gunakan panah **▸** di samping nama kegiatan untuk membuka atau menutup daftar subkegiatan.
 - Centang subkegiatan yang selesai. Persentase induk dihitung otomatis: jumlah yang dicentang dibagi jumlah seluruh subkegiatan, dengan bobot yang sama dan pembulatan ke bilangan terdekat. Induk tanpa subkegiatan bernilai 0%.
+- Subkegiatan baru dimulai dengan durasi satu hari. Tetapkan tanggal mulai dan selesai subkegiatan itu sendiri; batangnya mengikuti rentang tersebut, bukan seluruh durasi induk.
 - Edit tanggal pada subkegiatan. Rentang tanggal induk mengikuti subkegiatannya. Menggeser batang induk turut menggeser seluruh subkegiatan; perubahan tanggal tidak menjadwalkan ulang kegiatan lain secara otomatis.
 - Gunakan tombol **− / +** atau penggeser untuk mengubah tampilan triwulan dan bulanan. Tampilan awal adalah bulanan.
 - Tampilan awal menggunakan **tema gelap** dan **bahasa Inggris**. Saklar **Light / Dark** dan **ID / EN** menyimpan pilihan terakhir Anda di browser. Data jadwal dan checklist lama tetap dipertahankan saat pengaturan awal ini diperbarui.
