@@ -28,6 +28,8 @@ Koneksi memakai Google Identity Services. Token akses hanya ada di memori tab, b
 
 ## Kegiatan dan jadwal
 
+- Geser pembatas di sisi kanan judul kolom **Task, Start, Finish, dan %** untuk mengatur lebar. Klik dua kali untuk mengembalikan lebar awal; tombol panah juga dapat digunakan saat pembatas dipilih. Lebar kolom diingat pada browser masing-masing.
+
 - Tambahkan kegiatan, subkegiatan, atau tonggak melalui tombol bagian atas. Buka daftar subkegiatan melalui panah di samping kegiatan.
 - Centang subkegiatan yang selesai. Persentase induk = jumlah subkegiatan dicentang dibagi seluruh subkegiatan, berbobot sama dan dibulatkan. Induk tanpa subkegiatan bernilai 0%.
 - Subkegiatan baru berdurasi satu hari. Atur tanggal mulai dan selesainya; batang subkegiatan mengikuti tanggalnya sendiri.
