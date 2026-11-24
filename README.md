@@ -28,6 +28,8 @@ Koneksi memakai Google Identity Services. Token akses hanya ada di memori tab, b
 
 ## Kegiatan dan jadwal
 
+- Nama kegiatan dan subkegiatan otomatis membungkus ke baris berikutnya sesuai lebar kolom. Tinggi baris dan batang Gantt menyesuaikan tampilannya.
+
 - Geser pembatas di sisi kanan judul kolom **Task, Start, Finish, dan %** untuk mengatur lebar. Klik dua kali untuk mengembalikan lebar awal; tombol panah juga dapat digunakan saat pembatas dipilih. Lebar kolom diingat pada browser masing-masing.
 
 - Tambahkan kegiatan, subkegiatan, atau tonggak melalui tombol bagian atas. Buka daftar subkegiatan melalui panah di samping kegiatan.
